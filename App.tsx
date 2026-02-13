@@ -34,6 +34,7 @@ const App: React.FC = () => {
   const [editingTxId, setEditingTxId] = useState<string | null>(null);
   const [editTxAmountStr, setEditTxAmountStr] = useState('');
   const [editTxDesc, setEditTxDesc] = useState('');
+  const [editTxDate, setEditTxDate] = useState('');
 
   // History Filter State
   const [historyFilter, setHistoryFilter] = useState<'ALL' | TransactionType>('ALL');
@@ -165,12 +166,14 @@ const App: React.FC = () => {
     setEditingTxId(tx.id);
     setEditTxAmountStr(tx.amount.toString());
     setEditTxDesc(tx.description);
+    setEditTxDate(tx.date);
   };
 
   const handleCancelEditTx = () => {
     setEditingTxId(null);
     setEditTxAmountStr('');
     setEditTxDesc('');
+    setEditTxDate('');
   };
 
   const handleSaveEditTx = async (id: string) => {
@@ -182,11 +185,16 @@ const App: React.FC = () => {
       alert("Keterangan tidak boleh kosong");
       return;
     }
+    if (!editTxDate) {
+      alert("Tanggal tidak boleh kosong");
+      return;
+    }
 
     try {
       await FinanceService.updateTransaction(id, {
         amount: parseInt(editTxAmountStr),
-        description: editTxDesc
+        description: editTxDesc,
+        date: editTxDate
       });
       // Reload all data to refresh charts and totals properly
       await loadAllData();
@@ -195,7 +203,6 @@ const App: React.FC = () => {
       handleError(e, "mengupdate transaksi");
     }
   };
-
 
   const renderNav = () => (
     <div className="fixed bottom-0 left-0 w-full bg-slate-900/90 backdrop-blur-md border-t border-slate-800 px-4 py-2 flex justify-around items-center z-50 md:sticky md:top-0 md:h-screen md:w-64 md:flex-col md:justify-start md:border-t-0 md:border-r md:p-6 shadow-2xl">
@@ -271,44 +278,52 @@ const App: React.FC = () => {
               
               {editingTxId === t.id ? (
                 /* EDIT MODE */
-                <div className="flex flex-col md:flex-row gap-3 w-full animate-fade-in">
-                  <div className="flex-1">
+                <div className="flex flex-col gap-2 w-full animate-fade-in p-2 bg-slate-900/50 rounded-lg">
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       value={editTxDesc}
                       onChange={(e) => setEditTxDesc(e.target.value)}
                       placeholder="Keterangan"
-                      className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-500 text-xs">Rp</span>
-                    <input
-                      type="text"
-                      value={formatInputDisplay(Number(editTxAmountStr))}
-                      onChange={(e) => {
-                         const val = e.target.value.replace(/\./g, '');
-                         if (!isNaN(Number(val))) setEditTxAmountStr(val);
-                      }}
-                      placeholder="Nominal"
-                      className="w-32 bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-right"
+                  <div className="flex gap-2 items-center flex-wrap">
+                    <input 
+                      type="date"
+                      value={editTxDate}
+                      onChange={(e) => setEditTxDate(e.target.value)}
+                      className="bg-slate-800 border border-slate-600 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" 
                     />
-                  </div>
-                  <div className="flex gap-2 justify-end">
-                    <button 
-                      onClick={() => handleSaveEditTx(t.id)} 
-                      className="p-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors"
-                      title="Simpan"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    </button>
-                    <button 
-                      onClick={handleCancelEditTx} 
-                      className="p-2 bg-slate-600 hover:bg-slate-500 text-white rounded-lg transition-colors"
-                      title="Batal"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
+                    <div className="flex items-center gap-2 flex-1 min-w-[150px]">
+                      <span className="text-slate-500 text-xs">Rp</span>
+                      <input
+                        type="text"
+                        value={formatInputDisplay(Number(editTxAmountStr))}
+                        onChange={(e) => {
+                           const val = e.target.value.replace(/\./g, '');
+                           if (!isNaN(Number(val))) setEditTxAmountStr(val);
+                        }}
+                        placeholder="Nominal"
+                        className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-right"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={() => handleSaveEditTx(t.id)} 
+                        className="p-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors"
+                        title="Simpan"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      </button>
+                      <button 
+                        onClick={handleCancelEditTx} 
+                        className="p-2 bg-slate-600 hover:bg-slate-500 text-white rounded-lg transition-colors"
+                        title="Batal"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -325,13 +340,16 @@ const App: React.FC = () => {
                     <p className={`font-bold font-mono text-sm whitespace-nowrap ${t.type === TransactionType.INCOME ? 'text-emerald-400' : 'text-rose-400'}`}>
                       {t.type === TransactionType.INCOME ? '+' : '-'}{formatRupiah(t.amount)}
                     </p>
-                    <button
-                      onClick={() => handleStartEditTx(t)}
-                      className="p-1.5 text-slate-500 hover:text-indigo-400 hover:bg-slate-700 rounded-lg transition-all opacity-100 md:opacity-0 group-hover:opacity-100"
-                      title="Edit Transaksi"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-                    </button>
+                    <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => handleStartEditTx(t)}
+                        className="p-1.5 text-slate-500 hover:text-indigo-400 hover:bg-slate-700 rounded-lg transition-all"
+                        title="Edit Transaksi"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                      </button>
+                      {/* Delete button removed as requested */}
+                    </div>
                   </div>
                 </>
               )}
