@@ -1,0 +1,5 @@
+{
+  "name": "KasKita - Group Finance Tracker",
+  "description": "A robust group finance management application featuring member management, income/expense tracking with Rupiah formatting, real-time clock, and visualization charts. Ready for Supabase integration.",
+  "requestFramePermissions": []
+}
