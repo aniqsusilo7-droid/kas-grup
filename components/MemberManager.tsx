@@ -62,8 +62,8 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
   };
 
   return (
-    <div className="animate-slide-up bg-slate-800 rounded-2xl shadow-lg p-6 border border-slate-700">
-      <h3 className="text-xl font-bold text-white mb-4">Manajemen Anggota</h3>
+    <div className="animate-slide-up bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
+      <h3 className="text-xl font-bold text-slate-800 mb-4">Manajemen Anggota</h3>
       
       {/* Add Member Form */}
       <form onSubmit={handleAdd} className="flex gap-2 mb-6">
@@ -73,12 +73,12 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
           onChange={(e) => setNewName(e.target.value)}
           placeholder="Nama Anggota Baru..."
           disabled={isProcessing === 'ADD'}
-          className="flex-1 px-4 py-3 border border-slate-600 rounded-xl bg-slate-900 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:bg-slate-800 disabled:text-slate-600 transition-all"
+          className="flex-1 px-4 py-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:bg-slate-100 disabled:text-slate-400 transition-all"
         />
         <button
           type="submit"
           disabled={isProcessing === 'ADD' || !newName.trim()}
-          className="bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-500 font-medium transition-all shadow-lg shadow-indigo-500/30 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
+          className="bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-500 font-medium transition-all shadow-md shadow-indigo-500/30 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
         >
           {isProcessing === 'ADD' ? 'Menyimpan...' : 'Tambah'}
         </button>
@@ -87,7 +87,7 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
       {/* Members List */}
       <div className="grid grid-cols-1 gap-3">
         {members.map((member) => (
-          <div key={member.id} className="flex justify-between items-center p-4 bg-slate-900/50 rounded-xl border border-slate-700/50 hover:border-indigo-500/50 transition-all group">
+          <div key={member.id} className="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-200 transition-all group">
             
             {editingId === member.id ? (
               // EDIT MODE
@@ -96,7 +96,7 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
                   type="text" 
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="flex-1 px-3 py-2 text-sm bg-slate-800 border border-indigo-500 rounded-lg focus:outline-none text-white"
+                  className="flex-1 px-3 py-2 text-sm bg-white border border-indigo-500 rounded-lg focus:outline-none text-slate-800"
                   autoFocus
                 />
                 <button 
@@ -109,7 +109,7 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
                 <button 
                   onClick={cancelEditing}
                   disabled={isProcessing === member.id}
-                  className="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 text-sm rounded-lg transition-colors"
+                  className="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-2 text-sm rounded-lg transition-colors"
                 >
                   Batal
                 </button>
@@ -117,18 +117,17 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
             ) : (
               // VIEW MODE
               <>
-                <span className="font-medium text-slate-200 truncate mr-2 flex-1">{member.name}</span>
+                <span className="font-medium text-slate-700 truncate mr-2 flex-1">{member.name}</span>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => startEditing(member)}
                     disabled={!!isProcessing}
-                    className="p-2 text-slate-500 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all rounded-lg"
+                    className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all rounded-lg"
                     title="Edit Nama"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                   </button>
-                  {/* Delete Button Removed as Requested */}
                 </div>
               </>
             )}
@@ -136,7 +135,7 @@ const MemberManager: React.FC<Props> = ({ members, onUpdate, onEdit }) => {
         ))}
       </div>
       {members.length === 0 && (
-        <p className="text-center text-slate-500 py-8 bg-slate-900/50 rounded-xl border border-dashed border-slate-700">
+        <p className="text-center text-slate-500 py-8 bg-slate-50 rounded-xl border border-dashed border-slate-200">
           Belum ada anggota terdaftar.
         </p>
       )}

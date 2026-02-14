@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -28,8 +27,8 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #0f172a; /* Slate 900 */
-        color: #f8fafc;
+        background-color: #f8fafc; /* Slate 50 (Light Theme) */
+        color: #1e293b; /* Slate 800 */
       }
       
       /* Professional Smooth Scrollbar */
@@ -38,14 +37,14 @@
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #1e293b; 
+        background: #f1f5f9; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #475569;
+        background: #cbd5e1;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
+        background: #94a3b8;
       }
 
       /* Professional Animations */
@@ -74,9 +73,9 @@
       }
 
       .glass-panel {
-        background: rgba(30, 41, 59, 0.7);
+        background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
       }
     </style>
   <script type="importmap">

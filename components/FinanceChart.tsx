@@ -38,15 +38,15 @@ const FinanceChart: React.FC<Props> = ({ transactions }) => {
 
   if (data.length === 0) {
     return (
-      <div className="bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-700 flex items-center justify-center h-64 text-slate-500">
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-center h-64 text-slate-500">
         Belum ada data transaksi untuk grafik.
       </div>
     );
   }
 
   return (
-    <div className="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 hover:border-slate-600 transition-colors">
-      <h3 className="text-lg font-bold text-slate-200 mb-6 flex items-center gap-2">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-200 transition-colors">
+      <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
         Analisis Arus Kas Bulanan
       </h3>
       <div className="h-[300px] w-full">
@@ -60,26 +60,26 @@ const FinanceChart: React.FC<Props> = ({ transactions }) => {
               bottom: 5,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
-            <XAxis dataKey="name" tick={{fill: '#94a3b8', fontSize: 12}} axisLine={false} tickLine={false} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+            <XAxis dataKey="name" tick={{fill: '#64748b', fontSize: 12}} axisLine={false} tickLine={false} />
             <YAxis 
               tickFormatter={(value) => formatRupiah(value)} 
-              tick={{fill: '#94a3b8', fontSize: 11}} 
+              tick={{fill: '#64748b', fontSize: 11}} 
               width={100}
               axisLine={false} 
               tickLine={false}
             />
             <Tooltip 
-              cursor={{fill: 'rgba(255,255,255,0.05)'}}
+              cursor={{fill: 'rgba(0,0,0,0.05)'}}
               contentStyle={{ 
-                backgroundColor: '#1e293b', 
+                backgroundColor: '#ffffff', 
                 borderRadius: '12px', 
-                border: '1px solid #334155', 
-                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.5)',
-                color: '#f8fafc'
+                border: '1px solid #e2e8f0', 
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                color: '#1e293b'
               }}
               formatter={(value: number) => [formatRupiah(value), '']}
-              labelStyle={{ color: '#e2e8f0', fontWeight: 'bold', marginBottom: '8px' }}
+              labelStyle={{ color: '#0f172a', fontWeight: 'bold', marginBottom: '8px' }}
             />
             <Legend wrapperStyle={{ paddingTop: '20px' }} />
             <Bar dataKey="income" name="Pemasukan" fill="#10b981" radius={[4, 4, 0, 0]} barSize={20} />
