@@ -5,113 +5,129 @@ import { formatRupiah } from '../utils';
 
 interface Props {
   transactions: Transaction[];
+  theme: 'light' | 'dark';
 }
 
-const MemberChart: React.FC<Props> = ({ transactions }) => {
+const MemberChart: React.FC<Props> = ({ transactions, theme }) => {
   const data = React.useMemo(() => {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
 
-    // 1. Filter: Income only & Current Month
     const filtered = transactions.filter(t => {
       const tDate = new Date(t.date);
       return (
         t.type === TransactionType.INCOME &&
-        t.memberId && // Must have a member
+        t.memberId &&
         tDate.getMonth() === currentMonth &&
         tDate.getFullYear() === currentYear
       );
     });
 
-    // 2. Aggregate by Member
     const map = new Map<string, number>();
-    
     filtered.forEach(t => {
       const name = t.memberName || 'Tanpa Nama';
       const current = map.get(name) || 0;
       map.set(name, current + t.amount);
     });
 
-    // 3. Convert to Array for Recharts
     return Array.from(map.entries())
       .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value); // Sort highest first
+      .sort((a, b) => b.value - a.value);
 
   }, [transactions]);
 
   const currentMonthName = new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
-  
-  // Calculate height dynamically based on number of items to ensure it looks good
-  const chartHeight = Math.max(300, data.length * 40);
+  const chartHeight = Math.max(350, data.length * 60);
+  const isDark = theme === 'dark';
 
   if (data.length === 0) {
     return (
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-full flex flex-col min-h-[300px]">
-        <h3 className="text-lg font-bold text-slate-800 mb-2">Grafik Pemasukan Anggota</h3>
-        <p className="text-xs text-slate-500 mb-6">Bulan {currentMonthName}</p>
-        <div className="flex-1 flex items-center justify-center text-slate-400 text-sm italic border-2 border-dashed border-slate-200 rounded-xl">
-          Belum ada pemasukan bulan ini
+      <div className="bg-white dark:bg-slate-900/40 p-10 rounded-[2.5rem] shadow-soft-xl border border-slate-200 dark:border-white/5 h-full flex flex-col min-h-[350px] animate-fade-in">
+        <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">Peringkat Kontributor</h3>
+        <p className="text-slate-400 dark:text-slate-600 text-[10px] font-black uppercase tracking-widest mb-10">Bulan {currentMonthName}</p>
+        <div className="flex-1 flex items-center justify-center text-slate-400 dark:text-slate-600 text-xs font-black uppercase tracking-widest italic border-2 border-dashed border-slate-100 dark:border-white/5 rounded-[2rem]">
+          Belum ada kontribusi bulan ini
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-200 transition-colors flex flex-col">
-      <h3 className="text-lg font-bold text-slate-800 mb-1">Grafik Pemasukan Anggota</h3>
-      <p className="text-xs text-slate-500 mb-4">Bulan {currentMonthName}</p>
+    <div className="bg-white dark:bg-slate-900/40 p-10 rounded-[2.5rem] shadow-soft-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all duration-700 animate-slide-up group flex flex-col">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
+        <div>
+          <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter mb-1 group-hover:text-indigo-600 transition-colors duration-500">Peringkat Kontributor</h3>
+          <p className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Kontribusi {currentMonthName}</p>
+        </div>
+        <div className="px-5 py-2 bg-indigo-600/10 rounded-2xl text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] border border-indigo-500/10 shadow-sm font-mono-premium">
+          LEADERBOARD
+        </div>
+      </div>
       
       <div style={{ height: chartHeight, width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             layout="vertical"
             data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20, 
-              bottom: 5,
-            }}
+            margin={{ top: 0, right: 60, left: 10, bottom: 0 }}
           >
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+            <defs>
+              <linearGradient id="contributorGradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#6366f1" stopOpacity={0.9}/>
+                <stop offset="100%" stopColor="#4f46e5" stopOpacity={1}/>
+              </linearGradient>
+              <linearGradient id="contributorGold" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9}/>
+                <stop offset="100%" stopColor="#f59e0b" stopOpacity={1}/>
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.05)"} />
             <XAxis 
               type="number" 
-              tickFormatter={(value) => formatRupiah(value).replace(',00', '')} // Simplify label
-              tick={{fill: '#64748b', fontSize: 11}} 
+              tickFormatter={(value) => formatRupiah(value).replace(',00', '').replace('Rp', '')}
+              tick={{fill: isDark ? '#64748b' : '#94a3b8', fontSize: 10, fontWeight: 700}} 
               axisLine={false} 
               tickLine={false} 
+              dy={10}
             />
             <YAxis 
               dataKey="name" 
               type="category" 
               width={120} 
-              tick={{fill: '#334155', fontSize: 12, fontWeight: 500}} 
+              tick={{fill: isDark ? '#f1f5f9' : '#0f172a', fontSize: 12, fontWeight: 900, letterSpacing: '-0.025em'}} 
               axisLine={false} 
               tickLine={false}
             />
             <Tooltip 
-              cursor={{fill: 'rgba(0,0,0,0.05)'}}
+              cursor={{fill: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)', radius: 12}}
               contentStyle={{ 
-                backgroundColor: '#ffffff', 
-                borderRadius: '12px', 
-                border: '1px solid #e2e8f0', 
-                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-                color: '#1e293b'
+                backgroundColor: isDark ? '#0f172a' : '#ffffff', 
+                borderRadius: '24px', 
+                border: isDark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.05)', 
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                padding: '16px 20px',
+                backdropFilter: 'blur(10px)'
               }}
-              formatter={(value: number) => [formatRupiah(value), 'Pemasukan']}
-              itemStyle={{ color: '#10b981' }}
-              labelStyle={{ color: '#0f172a', fontWeight: 'bold', marginBottom: '8px' }}
+              formatter={(value: number) => [formatRupiah(value), 'Total Kas']}
+              labelStyle={{ color: isDark ? '#f1f5f9' : '#0f172a', fontWeight: 900, marginBottom: '10px', fontSize: '14px' }}
             />
             <Bar 
               dataKey="value" 
-              name="Pemasukan" 
-              fill="#10b981" 
-              radius={[0, 4, 4, 0]} 
-              barSize={24}
+              name="Kontribusi" 
+              fill="url(#contributorGradient)" 
+              radius={[0, 10, 10, 0]} 
+              barSize={32}
+              animationDuration={2200}
+              animationEasing="cubic-bezier(0.19, 1, 0.22, 1)"
+              animationBegin={100}
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#34d399'} />
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={index === 0 ? 'url(#contributorGold)' : 'url(#contributorGradient)'} 
+                  opacity={1 - (index * 0.1)}
+                />
               ))}
             </Bar>
           </BarChart>
