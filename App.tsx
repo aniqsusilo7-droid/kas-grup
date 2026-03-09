@@ -202,46 +202,46 @@ const App: React.FC = () => {
   );
 
   const renderNav = () => (
-    <nav className="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-slate-950/90 backdrop-blur-3xl border-t border-slate-200 dark:border-white/5 px-2 py-1 flex justify-around items-center z-50 md:sticky md:top-0 md:h-screen md:w-80 md:flex-col md:justify-start md:border-t-0 md:border-r md:p-10 transition-all duration-500">
-      <div className="hidden md:flex flex-col items-center mb-16 w-full group">
-        <div className="p-5 bg-indigo-600 rounded-[2.25rem] shadow-indigo-glow transform transition-all duration-700 group-hover:rotate-[10deg] group-hover:scale-110">
-           <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <nav className="fixed bottom-0 left-0 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/5 px-2 pb-safe pt-1 flex justify-around items-center z-50 md:sticky md:top-0 md:h-screen md:w-72 md:flex-col md:justify-start md:border-t-0 md:border-r md:p-8 transition-all duration-500">
+      <div className="hidden md:flex flex-col items-center mb-12 w-full group">
+        <div className="p-4 bg-indigo-600 rounded-3xl shadow-indigo-glow transform transition-all duration-700 group-hover:rotate-[10deg] group-hover:scale-110">
+           <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05 1.18 1.91 2.53 1.91 1.29 0 2.13-.72 2.13-1.71 0-2.69-5.04-1.84-5.04-4.5 0-1.42 1.1-2.58 2.69-2.94V5h2.67v1.9c1.7.35 2.96 1.48 2.96 3.45h-1.96c-.1-1.05-1.02-1.88-2.31-1.88-1.2 0-2.08.73-2.08 1.62 0 2.39 5.04 1.5 5.04 4.31 0 1.46-1.11 2.7-2.65 3.1z"/>
            </svg>
         </div>
-        <div className="text-center mt-6">
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">GRUP D</h1>
-          <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500 mt-1 opacity-60">UANG KAS</p>
+        <div className="text-center mt-5">
+          <h1 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">GRUP D</h1>
+          <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 mt-1 opacity-60">UANG KAS</p>
         </div>
       </div>
       
-      <div className="flex flex-row md:flex-col md:w-full items-center justify-around w-full gap-1 md:gap-3">
+      <div className="flex flex-row md:flex-col md:w-full items-center justify-around w-full gap-1 md:gap-2">
         {[
-          { id: 'DASHBOARD', label: 'Dashboard', icon: DashboardIcon },
-          { id: 'INCOME', label: 'Pemasukan', icon: IncomeIcon },
-          { id: 'EXPENSE', label: 'Pengeluaran', icon: ExpenseIcon },
+          { id: 'DASHBOARD', label: 'Home', icon: DashboardIcon },
+          { id: 'INCOME', label: 'Masuk', icon: IncomeIcon },
+          { id: 'EXPENSE', label: 'Keluar', icon: ExpenseIcon },
           { id: 'HISTORY', label: 'Riwayat', icon: HistoryIcon },
           { id: 'MEMBERS', label: 'Anggota', icon: MemberIcon },
         ].map((item) => (
           <button
             key={item.id}
             onClick={() => setView(item.id as ViewState)}
-            className={`flex flex-col md:flex-row items-center md:w-full md:px-6 md:py-4 md:rounded-[1.75rem] transition-all duration-500 relative group ${
+            className={`flex flex-col md:flex-row items-center md:w-full px-3 py-2 md:px-5 md:py-3.5 md:rounded-2xl transition-all duration-300 relative group ${
               view === item.id 
-                ? 'text-indigo-600 dark:text-white md:bg-indigo-600/10 dark:md:bg-indigo-600 md:shadow-soft-xl' 
-                : 'text-slate-400 dark:text-slate-500 hover:text-indigo-500 md:hover:bg-slate-100/50 dark:md:hover:bg-white/5'
+                ? 'text-indigo-600 dark:text-indigo-400 md:bg-indigo-50 dark:md:bg-indigo-900/20' 
+                : 'text-slate-400 dark:text-slate-500 hover:text-indigo-500 md:hover:bg-slate-100 dark:md:hover:bg-white/5'
             }`}
           >
+            <span className={`mb-1 md:mb-0 md:mr-4 transition-all duration-300 ${view === item.id ? 'scale-110' : 'group-hover:scale-110'}`}>{item.icon()}</span>
+            <span className={`text-[10px] md:text-[14px] font-semibold tracking-tight ${view === item.id ? 'opacity-100' : 'opacity-70'}`}>{item.label}</span>
             {view === item.id && (
-              <span className="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-indigo-600 rounded-full dark:bg-white"></span>
+              <span className="md:hidden absolute -top-1 w-1 h-1 bg-indigo-600 rounded-full"></span>
             )}
-            <span className={`mb-1 md:mb-0 md:mr-5 transition-all duration-500 ${view === item.id ? 'scale-110' : 'group-hover:scale-110'}`}>{item.icon()}</span>
-            <span className={`text-[9px] md:text-[15px] font-bold tracking-tight ${view === item.id ? 'opacity-100' : 'opacity-60'}`}>{item.label}</span>
           </button>
         ))}
       </div>
 
-      <div className="hidden md:block mt-auto w-full pt-8 border-t border-slate-100 dark:border-white/5">
+      <div className="hidden md:block mt-auto w-full pt-6 border-t border-slate-100 dark:border-white/5">
         <ThemeToggle />
       </div>
 
@@ -252,81 +252,81 @@ const App: React.FC = () => {
   );
 
   const renderDashboard = () => (
-    <div className="space-y-10 animate-slide-up">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="space-y-6 md:space-y-10 animate-slide-up">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         {/* Balance Card */}
-        <div className="bg-white dark:bg-slate-900/40 p-10 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-[80px] group-hover:bg-indigo-500/20 transition-all duration-700"></div>
+        <div className="bg-white dark:bg-slate-900/40 p-6 md:p-10 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group transition-all duration-500">
+          <div className="absolute -top-10 -right-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-[80px]"></div>
           <div className="relative z-10">
-            <div className="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-3xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-8 transform transition-transform group-hover:scale-110">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl md:rounded-3xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6 md:mb-8">
               <DashboardIcon />
             </div>
-            <p className="text-slate-400 dark:text-slate-500 text-[11px] font-black uppercase tracking-[0.3em]">Total Saldo Kas</p>
-            <p className="text-4xl font-black text-slate-900 dark:text-white mt-4 font-mono-premium tracking-tighter">{formatRupiah(totalBalance)}</p>
+            <p className="text-slate-400 dark:text-slate-500 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]">Total Saldo Kas</p>
+            <p className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white mt-2 md:mt-4 font-mono-premium tracking-tight">{formatRupiah(totalBalance)}</p>
           </div>
         </div>
 
         {/* Income Card */}
-        <div className="bg-white dark:bg-slate-900/40 p-10 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-[80px] group-hover:bg-emerald-500/20 transition-all duration-700"></div>
+        <div className="bg-white dark:bg-slate-900/40 p-6 md:p-10 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group transition-all duration-500">
+          <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-[80px]"></div>
           <div className="relative z-10">
-            <div className="w-14 h-14 bg-emerald-50 dark:bg-emerald-900/30 rounded-3xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-8 transform transition-transform group-hover:scale-110">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl md:rounded-3xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 md:mb-8">
               <IncomeIcon />
             </div>
-            <p className="text-slate-400 dark:text-slate-500 text-[11px] font-black uppercase tracking-[0.3em]">Masuk • {new Date().toLocaleDateString('id-ID', {month: 'short'})}</p>
-            <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-4 font-mono-premium tracking-tighter">+{formatRupiah(monthlyIncome)}</p>
+            <p className="text-slate-400 dark:text-slate-500 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]">Masuk • {new Date().toLocaleDateString('id-ID', {month: 'short'})}</p>
+            <p className="text-xl md:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2 md:mt-4 font-mono-premium tracking-tight">+{formatRupiah(monthlyIncome)}</p>
           </div>
         </div>
 
         {/* Expense Card */}
-        <div className="bg-white dark:bg-slate-900/40 p-10 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-rose-500/10 rounded-full blur-[80px] group-hover:bg-rose-500/20 transition-all duration-700"></div>
+        <div className="bg-white dark:bg-slate-900/40 p-6 md:p-10 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 relative overflow-hidden group transition-all duration-500">
+          <div className="absolute -top-10 -right-10 w-48 h-48 bg-rose-500/10 rounded-full blur-[80px]"></div>
           <div className="relative z-10">
-            <div className="w-14 h-14 bg-rose-50 dark:bg-rose-900/30 rounded-3xl flex items-center justify-center text-rose-600 dark:text-rose-400 mb-8 transform transition-transform group-hover:scale-110">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-rose-50 dark:bg-rose-900/30 rounded-2xl md:rounded-3xl flex items-center justify-center text-rose-600 dark:text-rose-400 mb-6 md:mb-8">
               <ExpenseIcon />
             </div>
-            <p className="text-slate-400 dark:text-slate-500 text-[11px] font-black uppercase tracking-[0.3em]">Keluar • {new Date().toLocaleDateString('id-ID', {month: 'short'})}</p>
-            <p className="text-3xl font-black text-rose-600 dark:text-rose-400 mt-4 font-mono-premium tracking-tighter">-{formatRupiah(monthlyExpense)}</p>
+            <p className="text-slate-400 dark:text-slate-500 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]">Keluar • {new Date().toLocaleDateString('id-ID', {month: 'short'})}</p>
+            <p className="text-xl md:text-3xl font-black text-rose-600 dark:text-rose-400 mt-2 md:mt-4 font-mono-premium tracking-tight">-{formatRupiah(monthlyExpense)}</p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-10">
+      <div className="grid grid-cols-1 gap-6 md:gap-10">
         <FinanceChart transactions={transactions} theme={theme} />
         <MemberChart transactions={transactions} theme={theme} />
       </div>
 
-      <div className="bg-white dark:bg-slate-900/40 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 p-10">
-        <div className="flex justify-between items-center mb-10 px-2">
-          <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-5 tracking-tight">
+      <div className="bg-white dark:bg-slate-900/40 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 p-6 md:p-10">
+        <div className="flex justify-between items-center mb-6 md:mb-10 px-1">
+          <h3 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3 md:gap-5 tracking-tight">
             Mutasi Terakhir
-            <span className="w-3 h-3 rounded-full bg-indigo-500 animate-pulse"></span>
+            <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-indigo-500 animate-pulse"></span>
           </h3>
-          <button onClick={() => setView('HISTORY')} className="text-[11px] font-black uppercase tracking-[0.2em] text-indigo-500 hover:text-indigo-600 transition-colors">Semua Data</button>
+          <button onClick={() => setView('HISTORY')} className="text-[10px] md:text-[11px] font-black uppercase tracking-widest text-indigo-500 hover:text-indigo-600 transition-colors">Lihat Semua</button>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {transactions.slice().reverse().slice(0, 5).map(t => (
-            <div key={t.id} className="group flex justify-between items-center p-6 rounded-4xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-500 border border-transparent hover:border-slate-200 dark:hover:border-white/10 shadow-inner-soft md:shadow-none hover:shadow-soft-xl">
-              <div className="flex items-center gap-6 flex-1 min-w-0">
-                <div className={`flex-shrink-0 w-14 h-14 rounded-[1.75rem] flex items-center justify-center shadow-inner ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600'}`}>
+            <div key={t.id} className="group flex justify-between items-center p-4 md:p-6 rounded-2xl md:rounded-4xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-slate-200 dark:hover:border-white/10">
+              <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
+                <div className={`flex-shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-[1.75rem] flex items-center justify-center shadow-sm ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600'}`}>
                   {t.type === TransactionType.INCOME ? <IncomeIcon /> : <ExpenseIcon />}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-lg font-bold text-slate-900 dark:text-white truncate transition-colors group-hover:text-indigo-600">{t.description}</p>
-                  <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 mt-2">{new Date(t.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short'})} {t.memberName ? `• ${t.memberName}` : ''}</p>
+                  <p className="text-sm md:text-lg font-bold text-slate-900 dark:text-white truncate transition-colors group-hover:text-indigo-600">{t.description}</p>
+                  <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mt-1">{new Date(t.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short'})} {t.memberName ? `• ${t.memberName}` : ''}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-8">
-                <p className={`font-mono-premium font-black text-lg whitespace-nowrap px-6 py-2 rounded-2xl ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600' : 'bg-rose-50 dark:bg-rose-500/10 text-rose-600'}`}>
+              <div className="flex items-center gap-4 md:gap-8">
+                <p className={`font-mono-premium font-black text-sm md:text-lg whitespace-nowrap px-3 py-1 md:px-6 md:py-2 rounded-xl md:rounded-2xl ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600' : 'bg-rose-50 dark:bg-rose-500/10 text-rose-600'}`}>
                   {t.type === TransactionType.INCOME ? '+' : '-'}{formatRupiah(t.amount)}
                 </p>
-                <button onClick={() => handleStartEditTx(t)} className="opacity-0 group-hover:opacity-100 p-3 text-slate-300 hover:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 rounded-2xl transition-all duration-300 transform hover:scale-110">
+                <button onClick={() => handleStartEditTx(t)} className="hidden md:block p-3 text-slate-300 hover:text-indigo-500 dark:hover:text-white dark:hover:bg-indigo-600 rounded-2xl transition-all duration-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 </button>
               </div>
             </div>
           ))}
-          {transactions.length === 0 && <p className="text-slate-400 text-sm font-bold text-center py-20 bg-slate-50 dark:bg-white/5 rounded-[2.5rem]">Belum ada aktivitas.</p>}
+          {transactions.length === 0 && <p className="text-slate-400 text-sm font-bold text-center py-16 bg-slate-50 dark:bg-white/5 rounded-3xl">Belum ada aktivitas.</p>}
         </div>
       </div>
     </div>
@@ -338,31 +338,29 @@ const App: React.FC = () => {
     if (historyFilter !== 'ALL') sorted = sorted.filter(t => t.type === historyFilter);
 
     return (
-      <div className="animate-slide-up bg-white dark:bg-slate-900/40 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 overflow-hidden">
-        <div className="p-12 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/30">
-          <div className="flex flex-col xl:flex-row justify-between xl:items-center gap-10">
+      <div className="animate-slide-up bg-white dark:bg-slate-900/40 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 overflow-hidden">
+        <div className="p-6 md:p-12 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/30">
+          <div className="flex flex-col xl:flex-row justify-between xl:items-center gap-6 md:gap-10">
             <div>
-              <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Riwayat Mutasi</h2>
-              <p className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500 mt-2">Laporan Rekapitulasi Kas</p>
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Riwayat Mutasi</h2>
+              <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 mt-1 md:mt-2">Laporan Rekapitulasi Kas</p>
             </div>
-            <div className="flex flex-wrap gap-5">
+            <div className="flex flex-wrap gap-3 md:gap-5">
               <button 
                 onClick={handleExportCSV}
-                className="flex items-center gap-3 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 px-7 py-4 rounded-3xl text-[11px] font-black uppercase tracking-widest hover:border-indigo-500/30 hover:text-indigo-600 transition-all shadow-sm group"
+                className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 px-4 py-3 md:px-7 md:py-4 rounded-2xl md:rounded-3xl text-[10px] md:text-[11px] font-black uppercase tracking-widest hover:text-indigo-600 transition-all shadow-sm group"
               >
-                <span className="group-hover:-translate-y-1 transition-transform">
-                  <ExportIcon />
-                </span>
-                Export CSV (Excel Ready)
+                <ExportIcon />
+                <span className="hidden sm:inline">Export CSV</span>
               </button>
-              <input type="month" value={historyMonth} onChange={(e) => setHistoryMonth(e.target.value)} className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white px-7 py-4 rounded-3xl text-sm font-bold focus:border-indigo-500 shadow-sm" />
-              <div className="flex bg-white dark:bg-slate-900 p-2 rounded-3xl border-2 border-slate-200 dark:border-white/10 shadow-sm">
+              <input type="month" value={historyMonth} onChange={(e) => setHistoryMonth(e.target.value)} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white px-4 py-3 md:px-7 md:py-4 rounded-2xl md:rounded-3xl text-xs md:text-sm font-bold focus:border-indigo-500 shadow-sm" />
+              <div className="flex bg-white dark:bg-slate-900 p-1 md:p-2 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm">
                 {[
                   { id: 'ALL', label: 'Semua' },
                   { id: TransactionType.INCOME, label: 'Masuk' },
                   { id: TransactionType.EXPENSE, label: 'Keluar' }
                 ].map(f => (
-                  <button key={f.id} onClick={() => setHistoryFilter(f.id as any)} className={`px-7 py-2.5 text-[11px] font-black uppercase tracking-[0.15em] rounded-2xl transition-all ${historyFilter === f.id ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-indigo-500'}`}>{f.label}</button>
+                  <button key={f.id} onClick={() => setHistoryFilter(f.id as any)} className={`px-4 py-2 md:px-7 md:py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-tight rounded-xl md:rounded-2xl transition-all ${historyFilter === f.id ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-indigo-500'}`}>{f.label}</button>
                 ))}
               </div>
             </div>
@@ -370,53 +368,53 @@ const App: React.FC = () => {
         </div>
         <div className="divide-y divide-slate-100 dark:divide-white/5">
           {sorted.map((t) => (
-            <div key={t.id} className="p-10 hover:bg-slate-50/50 dark:hover:bg-white/5 transition-all duration-500 group flex flex-col sm:flex-row justify-between sm:items-center gap-8">
-              <div className="flex items-center gap-8">
-                 <div className={`w-16 h-16 rounded-[1.75rem] flex items-center justify-center shrink-0 shadow-inner ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600'}`}>
+            <div key={t.id} className="p-6 md:p-10 hover:bg-slate-50/50 dark:hover:bg-white/5 transition-all duration-300 group flex flex-col sm:flex-row justify-between sm:items-center gap-4 md:gap-8">
+              <div className="flex items-center gap-4 md:gap-8">
+                 <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl md:rounded-[1.75rem] flex items-center justify-center shrink-0 shadow-sm ${t.type === TransactionType.INCOME ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-rose-50 dark:bg-rose-900/20 text-rose-600'}`}>
                    {t.type === TransactionType.INCOME ? <IncomeIcon /> : <ExpenseIcon />}
                  </div>
                  <div>
-                    <p className="text-xl font-bold text-slate-800 dark:text-white leading-tight mb-2 group-hover:text-indigo-600 transition-colors">{t.description}</p>
-                    <div className="flex items-center gap-4">
-                      <span className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">{new Date(t.date).toLocaleDateString('id-ID', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'})}</span>
-                      {t.memberName && <span className="w-2 h-2 bg-slate-200 dark:bg-slate-800 rounded-full"></span>}
-                      {t.memberName && <span className="text-xs font-bold text-indigo-500">Kontributor: {t.memberName}</span>}
+                    <p className="text-lg md:text-xl font-bold text-slate-800 dark:text-white leading-tight mb-1 group-hover:text-indigo-600 transition-colors">{t.description}</p>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4">
+                      <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">{new Date(t.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}</span>
+                      {t.memberName && <span className="w-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-full"></span>}
+                      {t.memberName && <span className="text-[10px] md:text-xs font-bold text-indigo-500">{t.memberName}</span>}
                     </div>
                  </div>
               </div>
-              <div className="flex items-center gap-8 justify-between sm:justify-end">
-                <p className={`font-mono-premium font-black text-2xl ${t.type === TransactionType.INCOME ? 'text-emerald-600' : 'text-rose-600'}`}>
+              <div className="flex items-center gap-4 md:gap-8 justify-between sm:justify-end">
+                <p className={`font-mono-premium font-black text-xl md:text-2xl ${t.type === TransactionType.INCOME ? 'text-emerald-600' : 'text-rose-600'}`}>
                   {t.type === TransactionType.INCOME ? '+' : '-'}{formatRupiah(t.amount)}
                 </p>
-                <button onClick={() => handleStartEditTx(t)} className="p-4 text-slate-300 hover:text-white hover:bg-indigo-600 shadow-sm transition-all rounded-[1.25rem] border border-transparent hover:border-indigo-500/20">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                <button onClick={() => handleStartEditTx(t)} className="p-3 md:p-4 text-slate-300 hover:text-indigo-600 dark:hover:text-white dark:hover:bg-indigo-600 shadow-sm transition-all rounded-xl md:rounded-[1.25rem] border border-slate-100 dark:border-white/5">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                 </button>
               </div>
             </div>
           ))}
-          {sorted.length === 0 && <div className="p-32 text-center text-slate-400 dark:text-slate-600 font-black uppercase tracking-[0.4em] text-sm opacity-30 italic">Laporan Kosong</div>}
+          {sorted.length === 0 && <div className="p-20 md:p-32 text-center text-slate-400 dark:text-slate-600 font-black uppercase tracking-widest text-xs opacity-30 italic">Laporan Kosong</div>}
         </div>
       </div>
     );
   };
 
   const renderForm = (type: TransactionType) => (
-    <div className="animate-slide-up max-w-2xl mx-auto bg-white dark:bg-slate-900/40 rounded-5xl shadow-soft-xl border border-slate-200 dark:border-white/5 overflow-hidden">
-      <div className={`p-12 relative overflow-hidden ${type === TransactionType.INCOME ? 'bg-indigo-600' : 'bg-slate-800 dark:bg-slate-950'}`}>
+    <div className="animate-slide-up max-w-2xl mx-auto bg-white dark:bg-slate-900/40 rounded-3xl md:rounded-5xl shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 overflow-hidden">
+      <div className={`p-8 md:p-12 relative overflow-hidden ${type === TransactionType.INCOME ? 'bg-indigo-600' : 'bg-slate-800 dark:bg-slate-950'}`}>
         <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-white opacity-10 rounded-full blur-[90px]"></div>
-        <h2 className="text-4xl font-black text-white mb-3 relative z-10 tracking-tight">{type === TransactionType.INCOME ? 'Entri Pemasukan' : 'Entri Pengeluaran'}</h2>
-        <p className="text-white/50 text-[11px] font-black uppercase tracking-[0.4em] relative z-10">Laporan Finansial Grup</p>
+        <h2 className="text-2xl md:text-4xl font-black text-white mb-2 relative z-10 tracking-tight">{type === TransactionType.INCOME ? 'Entri Pemasukan' : 'Entri Pengeluaran'}</h2>
+        <p className="text-white/50 text-[10px] md:text-[11px] font-black uppercase tracking-widest relative z-10">Laporan Finansial Grup</p>
       </div>
-      <div className="p-14 space-y-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="p-8 md:p-14 space-y-8 md:space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           <div>
-            <label className="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4 ml-1">Tanggal</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-8 py-5 rounded-[1.75rem] bg-slate-50 dark:bg-slate-950 border-2 border-transparent focus:border-indigo-500/20 text-slate-800 dark:text-white font-bold" />
+            <label className="block text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Tanggal</label>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full px-6 py-4 md:px-8 md:py-5 rounded-2xl md:rounded-[1.75rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-white/5 focus:border-indigo-500/30 text-slate-800 dark:text-white font-bold" />
           </div>
           {type === TransactionType.INCOME && (
             <div>
-              <label className="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4 ml-1">Kontributor</label>
-              <select value={selectedMember} onChange={(e) => setSelectedMember(e.target.value)} className="w-full px-8 py-5 rounded-[1.75rem] bg-slate-50 dark:bg-slate-950 border-2 border-transparent focus:border-indigo-500/20 text-slate-800 dark:text-white font-bold">
+              <label className="block text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Kontributor</label>
+              <select value={selectedMember} onChange={(e) => setSelectedMember(e.target.value)} className="w-full px-6 py-4 md:px-8 md:py-5 rounded-2xl md:rounded-[1.75rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-white/5 focus:border-indigo-500/30 text-slate-800 dark:text-white font-bold">
                 <option value="">Pilih Anggota</option>
                 {members.map(m => (<option key={m.id} value={m.id}>{m.name}</option>))}
               </select>
@@ -424,17 +422,17 @@ const App: React.FC = () => {
           )}
         </div>
         <div>
-          <label className="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4 ml-1">Nominal</label>
+          <label className="block text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Nominal</label>
           <div className="relative group">
-            <span className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-400 font-black text-xl">Rp</span>
-            <input type="text" value={formatInputDisplay(amountStr ? parseInt(amountStr) : 0)} onChange={handleAmountChange} placeholder="0" className="w-full pl-20 pr-10 py-7 rounded-[2.25rem] bg-slate-50 dark:bg-slate-950 border-2 border-transparent focus:border-indigo-500 text-slate-800 dark:text-white font-mono-premium text-3xl font-black shadow-inner-soft" />
+            <span className="absolute left-6 md:left-8 top-1/2 -translate-y-1/2 text-slate-400 font-black text-lg md:text-xl">Rp</span>
+            <input type="text" value={formatInputDisplay(amountStr ? parseInt(amountStr) : 0)} onChange={handleAmountChange} placeholder="0" className="w-full pl-16 md:pl-20 pr-6 py-5 md:py-7 rounded-2xl md:rounded-[2.25rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-white/5 focus:border-indigo-500 text-slate-800 dark:text-white font-mono-premium text-2xl md:text-3xl font-black shadow-inner-soft" />
           </div>
         </div>
         <div>
-          <label className="block text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4 ml-1">Keterangan</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} placeholder="Apa tujuan transaksi ini?" className="w-full px-8 py-6 rounded-[2rem] bg-slate-50 dark:bg-slate-950 border-2 border-transparent focus:border-indigo-500/20 text-slate-800 dark:text-white font-bold placeholder-slate-400 transition-all resize-none shadow-inner-soft" />
+          <label className="block text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Keterangan</label>
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} placeholder="Apa tujuan transaksi ini?" className="w-full px-6 py-4 md:px-8 md:py-6 rounded-2xl md:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-white/5 focus:border-indigo-500/30 text-slate-800 dark:text-white font-bold placeholder-slate-400 transition-all resize-none shadow-inner-soft" />
         </div>
-        <button onClick={() => handleTransactionSubmit(type)} className={`w-full py-7 rounded-[2.25rem] text-white font-black text-xl tracking-tight shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 ${type === TransactionType.INCOME ? 'bg-indigo-600 shadow-indigo-600/30' : 'bg-slate-800 dark:bg-slate-950 shadow-slate-900/30'}`}>Submit Laporan</button>
+        <button onClick={() => handleTransactionSubmit(type)} className={`w-full py-5 md:py-7 rounded-2xl md:rounded-[2.25rem] text-white font-black text-lg md:text-xl tracking-tight shadow-lg hover:shadow-xl transition-all duration-300 ${type === TransactionType.INCOME ? 'bg-indigo-600 shadow-indigo-600/20' : 'bg-slate-800 dark:bg-slate-950 shadow-slate-900/20'}`}>Submit Laporan</button>
       </div>
     </div>
   );
@@ -452,13 +450,21 @@ const App: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-500">
       {renderNav()}
-      <main className="flex-1 p-6 md:p-16 mb-24 md:mb-0 overflow-y-auto h-screen">
-        <div className="max-w-6xl mx-auto pb-16">
-          <div className="flex justify-end md:hidden mb-4">
-             <div className="w-24"><ThemeToggle /></div>
+      <main className="flex-1 p-4 md:p-12 mb-20 md:mb-0 overflow-y-auto h-screen">
+        <div className="max-w-5xl mx-auto pb-12">
+          <div className="flex justify-between items-center md:hidden mb-6">
+             <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05 1.18 1.91 2.53 1.91 1.29 0 2.13-.72 2.13-1.71 0-2.69-5.04-1.84-5.04-4.5 0-1.42 1.1-2.58 2.69-2.94V5h2.67v1.9c1.7.35 2.96 1.48 2.96 3.45h-1.96c-.1-1.05-1.02-1.88-2.31-1.88-1.2 0-2.08.73-2.08 1.62 0 2.39 5.04 1.5 5.04 4.31 0 1.46-1.11 2.7-2.65 3.1z"/>
+                  </svg>
+                </div>
+                <span className="font-black tracking-tight text-lg">GRUP D</span>
+             </div>
+             <div className="w-20"><ThemeToggle /></div>
           </div>
           <LiveClock />
-          <div className="mt-16">
+          <div className="mt-8 md:mt-12">
             {view === 'DASHBOARD' && renderDashboard()}
             {view === 'INCOME' && renderForm(TransactionType.INCOME)}
             {view === 'EXPENSE' && renderForm(TransactionType.EXPENSE)}
@@ -472,8 +478,8 @@ const App: React.FC = () => {
             )}
           </div>
 
-          <footer className="mt-24 py-8 border-t border-slate-200 dark:border-white/5 flex flex-col items-center">
-            <div className="text-slate-400 dark:text-slate-600 font-bold text-[10px] tracking-[0.4em] uppercase opacity-60 hover:opacity-100 transition-opacity cursor-default animate-fade-in">
+          <footer className="mt-20 py-8 border-t border-slate-200 dark:border-white/5 flex flex-col items-center">
+            <div className="text-slate-400 dark:text-slate-600 font-bold text-[9px] tracking-widest uppercase opacity-50">
               AILO CORP | ANIQ SUSILO
             </div>
           </footer>

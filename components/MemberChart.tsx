@@ -54,13 +54,13 @@ const MemberChart: React.FC<Props> = ({ transactions, theme }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-900/40 p-10 rounded-[2.5rem] shadow-soft-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all duration-700 animate-slide-up group flex flex-col">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
+    <div className="bg-white dark:bg-slate-900/40 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all duration-700 animate-slide-up group flex flex-col">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 md:mb-12">
         <div>
-          <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter mb-1 group-hover:text-indigo-600 transition-colors duration-500">Peringkat Kontributor</h3>
-          <p className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Kontribusi {currentMonthName}</p>
+          <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-indigo-600 transition-colors duration-500">Peringkat Kontributor</h3>
+          <p className="text-slate-400 dark:text-slate-500 text-[9px] md:text-[10px] font-black uppercase tracking-widest">Kontribusi {currentMonthName}</p>
         </div>
-        <div className="px-5 py-2 bg-indigo-600/10 rounded-2xl text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] border border-indigo-500/10 shadow-sm font-mono-premium">
+        <div className="px-4 py-1.5 md:px-5 md:py-2 bg-indigo-600/10 rounded-xl md:rounded-2xl text-indigo-600 dark:text-indigo-400 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] border border-indigo-500/10 shadow-sm font-mono-premium">
           LEADERBOARD
         </div>
       </div>

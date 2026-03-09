@@ -44,26 +44,26 @@ const FinanceChart: React.FC<Props> = ({ transactions, theme }) => {
   const isDark = theme === 'dark';
 
   return (
-    <div className="bg-white dark:bg-slate-900/40 p-8 rounded-[2.5rem] shadow-soft-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all duration-700 animate-slide-up group">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10 px-2">
+    <div className="bg-white dark:bg-slate-900/40 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] shadow-sm md:shadow-soft-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all duration-700 animate-slide-up group">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 md:mb-10 px-1 md:px-2">
         <div>
-          <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter group-hover:text-indigo-600 transition-colors duration-500">
+          <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight group-hover:text-indigo-600 transition-colors duration-500">
             Arus Kas Bulanan
           </h3>
-          <p className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest mt-1">Analisis 12 Bulan Terakhir</p>
+          <p className="text-slate-400 dark:text-slate-500 text-[9px] md:text-[10px] font-black uppercase tracking-widest mt-1">Analisis 12 Bulan Terakhir</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-4 py-1.5 bg-emerald-500/5 rounded-full border border-emerald-500/10">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400">Pemasukan</span>
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 bg-emerald-500/5 rounded-full border border-emerald-500/10">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500"></span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400">Masuk</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-1.5 bg-rose-500/5 rounded-full border border-rose-500/10">
-            <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]"></span>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400">Pengeluaran</span>
+          <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 bg-rose-500/5 rounded-full border border-rose-500/10">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-rose-500"></span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400">Keluar</span>
           </div>
         </div>
       </div>
-      <div className="h-[350px] w-full">
+      <div className="h-[250px] md:h-[350px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
